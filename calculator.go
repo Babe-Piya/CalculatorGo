@@ -14,8 +14,8 @@ func main() {
 	operator = operatorCheck(operator)
 	fmt.Print("Please enter first number : ")
 	fmt.Scan(&numFirst)
-	numFirstType := fmt.Sprintf("%T", numFirst)
-	operandCheck(numFirstType)
+	// numFirstType := fmt.Sprintf("%T", numFirst)
+	// operandCheck(numFirstType)
 	fmt.Print("Please enter second number :  ")
 	fmt.Scan(&numSecond)
 	result = cal(operator, numFirst, numSecond)
@@ -53,15 +53,15 @@ func operatorCheck(operator string) string {
 	return operator
 }
 
-func operandCheck(numFirstType string) int {
-	for i := 0; i < 1; {
-		if numFirstType != "int" {
-			fmt.Println("Invalid number please try again.")
-			fmt.Print("Please enter operator:  ")
-			fmt.Scan(&numFirstType)
-		} else {
-			i++
-		}
-	}
-	return num
-}
+// func operandCheck(numFirstType string) int {
+// 	for i := 0; i < 1; {
+// 		if numFirstType != "int" {
+// 			fmt.Println("Invalid number please try again.")
+// 			fmt.Print("Please enter operator:  ")
+// 			fmt.Scan(&numFirstType)
+// 		} else {
+// 			i++
+// 		}
+// 	}
+// 	return num
+// }
