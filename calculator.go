@@ -10,26 +10,42 @@ var first string
 var second string
 var operator string
 var result int64
+var read bool
 
 func main() {
 
 	if len(os.Args) > 3 {
-		operator = operatorCheck(os.Args[1])
-		numFirst, err := operandCheck(os.Args[2])
-		if err != nil {
-			fmt.Println("Invalid number Please try again.")
-		}
-		numSecond, err := operandCheck(os.Args[3])
-		if err != nil {
-			fmt.Println("Invalid number Please try again.")
-		}
-		cal(operator, numFirst, numSecond)
+		read = true
 	}
 	for {
+		if read {
+			if !operatorCheck(os.Args[1]) {
+				read = false
+				continue
+			}
+			numFirst, err := operandCheck(os.Args[2])
+			if err != nil {
+				fmt.Println("Invalid number Please try again.")
+				read = false
+				continue
+			}
+
+			numSecond, err := operandCheck(os.Args[3])
+			if err != nil {
+				fmt.Println("Invalid number Please try again.")
+				read = false
+				continue
+			}
+
+			cal(os.Args[1], numFirst, numSecond)
+			read = false
+		}
+
 		fmt.Print("Please enter operator :  ")
 		fmt.Scan(&operator)
-		operator = operatorCheck(operator)
-
+		if !operatorCheck(operator) {
+			continue
+		}
 		fmt.Print("Please enter first number : ")
 		fmt.Scan(&first)
 		numFirst, err := operandCheck(first)
@@ -53,7 +69,6 @@ func main() {
 
 func cal(operator string, numFirst int64, numSecond int64) {
 	var result int64
-
 	switch operator {
 	case "+":
 		result = numFirst + numSecond
@@ -67,19 +82,16 @@ func cal(operator string, numFirst int64, numSecond int64) {
 	fmt.Printf("Result : %d\n", result)
 }
 
-func operatorCheck(operator string) string {
-
-	for i := 0; i < 1; {
-		switch operator {
-		case "+", "-", "*", "/":
-			i++
-		default:
-			fmt.Println("Wrong operator Please try again.")
-			fmt.Print("Please enter operator :  ")
-			fmt.Scan(&operator)
-		}
+func operatorCheck(operator string) bool {
+	check := false
+	switch operator {
+	case "+", "-", "*", "/":
+		check = true
+	default:
+		fmt.Println("Wrong operator Please try again.")
+		check = false
 	}
-	return operator
+	return check
 }
 
 func operandCheck(num string) (int64, error) {
@@ -88,4 +100,3 @@ func operandCheck(num string) (int64, error) {
 
 	return numChecked, err
 }
-
