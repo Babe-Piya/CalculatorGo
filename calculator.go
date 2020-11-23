@@ -48,6 +48,7 @@ func main() {
 		}
 		fmt.Print("Please enter first number : ")
 		fmt.Scan(&first)
+
 		numFirst, err := operandCheck(first)
 		if err != nil {
 			fmt.Println("Invalid number Please try again.")
@@ -56,6 +57,7 @@ func main() {
 
 		fmt.Print("Please enter second number :  ")
 		fmt.Scan(&second)
+		
 		numSecond, err := operandCheck(second)
 		if err != nil {
 			fmt.Println("Invalid number Please try again.")
@@ -67,19 +69,17 @@ func main() {
 
 }
 
-func cal(operator string, numFirst int64, numSecond int64) {
-	var result int64
+func cal(operator string, numFirst float64, numSecond float64) {
 	switch operator {
 	case "+":
-		result = numFirst + numSecond
+		showResultPlus( numFirst,numSecond)
 	case "-":
-		result = numFirst - numSecond
+		showResultMinus( numFirst,numSecond)
 	case "*":
-		result = numFirst * numSecond
+		showResultMultiply( numFirst,numSecond)
 	case "/":
-		result = numFirst / numSecond
+		showResultDevided(numFirst,numSecond)
 	}
-	fmt.Printf("Result : %d\n", result)
 }
 
 func operatorCheck(operator string) bool {
@@ -94,9 +94,36 @@ func operatorCheck(operator string) bool {
 	return check
 }
 
-func operandCheck(num string) (int64, error) {
+func operandCheck(num string) (float64, error) {
 
-	numChecked, err := strconv.ParseInt(num, 10, 64)
+	numChecked, err := strconv.ParseFloat(num, 64)
 
 	return numChecked, err
+}
+
+func showResultDevided(numFirst float64, numSecond float64) {
+	result := numFirst / numSecond
+	if numSecond == 0 {
+		fmt.Println("Can't devide by 0 ")
+	} else {
+	fmt.Printf("Result : %f\n", result)
+	}
+}
+
+func showResultPlus(numFirst float64, numSecond float64) {
+	result := numFirst + numSecond
+	fmt.Printf("Result : %f\n", result)
+	
+}
+
+func showResultMinus(numFirst float64, numSecond float64) {
+	result := numFirst - numSecond
+	fmt.Printf("Result : %f\n", result)
+	
+}
+
+func showResultMultiply(numFirst float64, numSecond float64) {
+	result := numFirst * numSecond
+	fmt.Printf("Result : %f\n", result)
+	
 }
